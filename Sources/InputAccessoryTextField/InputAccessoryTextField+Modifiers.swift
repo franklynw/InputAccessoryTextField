@@ -10,12 +10,18 @@ import SwiftUI
 
 extension InputAccessoryTextField {
     
+    /// Set the font of the textField
+    /// - Parameter font: a UIFont instance
     public func font(_ font: UIFont) -> Self {
         var copy = self
         copy.font = font
         return copy
     }
     
+    /// Set the font style and weight of the textField
+    /// - Parameters:
+    ///   - style: a Font.TextStyle
+    ///   - weight: a Font.Weight
     public func font(_ style: Font.TextStyle, weight: Font.Weight) -> Self {
         var copy = self
         let uiStyle = style.uiStyle
@@ -25,36 +31,48 @@ extension InputAccessoryTextField {
         return copy
     }
     
+    /// Set the text colour of the textField
+    /// - Parameter foregroundColor: a Color
     public func foregroundColor(_ foregroundColor: Color) -> Self {
         var copy = self
         copy.foregroundColor = foregroundColor
         return copy
     }
     
+    /// Set the keyboard type of the textField
+    /// - Parameter keyboardType: a UIKeyboardType case
     public func keyboardType(_ keyboardType: UIKeyboardType) -> Self {
         var copy = self
         copy.keyboardType = keyboardType
         return copy
     }
     
+    /// Set the return key type of the textField
+    /// - Parameter returnKeyType: a UIReturnKeyType case
     public func returnKeyType(_ returnKeyType: UIReturnKeyType) -> Self {
         var copy = self
         copy.returnKeyType = returnKeyType
         return copy
     }
     
+    /// Specify whether or not to apply autocorrection to the input
+    /// - Parameter disableAutocorrection: true to enable autocorrection
     public func disableAutocorrection(_ disableAutocorrection: Bool = true) -> Self {
         var copy = self
         copy.disableAutocorrection = disableAutocorrection
         return copy
     }
     
+    /// Set the autocapitalisation policy of the textField input
+    /// - Parameter autocapitalization: a UITextAutocapitalizationType case
     public func autocapitalization(_ autocapitalization: UITextAutocapitalizationType) -> Self {
         var copy = self
         copy.autocapitalization = autocapitalization
         return copy
     }
     
+    /// Tell the textField to become the first responder
+    /// - Parameter shouldStart: if set to true (default) then it will become the first responder
     public func startInput(_ shouldStart: (() -> Bool)? = nil) -> Self {
         guard let tag = tag else {
             return self
@@ -63,6 +81,10 @@ extension InputAccessoryTextField {
         return self
     }
     
+    /// Set the image for the accessory view's "Done" button, and any additional action to perform when the keyboard is dismissed
+    /// - Parameters:
+    ///   - buttonImage: the image for the accessory view's "Done" button
+    ///   - action: an additional action to perform when the keyboard is dismissed
     public func done(buttonImage: ImageNaming? = nil, action: (() -> ())? = nil) -> Self {
         var copy = self
         copy.commitAction = action

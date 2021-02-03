@@ -28,6 +28,8 @@ var body: some View {
 }
 ```
 
+To use with the "previous" and "next" buttons on the accessory view, each textField in the view needs to have a unique tag. Pressing "next" will show the field with the next-highest tag, pressing "previous" will show the field with the next lowest. If there is only one textField, these buttons will be hidden.
+
 There are some additional features apart from the input accessory view -
 
 ### Font
@@ -88,17 +90,25 @@ You can make the textField automatically become the first resonder (ie, it bring
 
 ```swift
 InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
-    startInput()
+    .startInput()
 ```
 
 The modifier can also take a Bool parameter to base its behaviour on another property.
 
 ### Customise the "Done" button on the input accessory view
 
-Pass in a system image name to use that for the button. You can also set the action to be invoked when the button is pressed, in addition to it dismissing the keyboard.
+Pass in a system image name to use that for the button. You can also set the action to be invoked when the button is pressed, in addition to it dismissing the keyboard. If no image is specified, it will default to "keyboard.chevron.compact.down"
 
 ```swift
 InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .done(buttonImage: "rectangle.and.pencil.and.ellipsis") {
+        // do something
+    }
+```
+
+### Standard behaviour
+
+In addition to the above, you can also specify the foregroundColor, which sets the text colour.
 
 
 ## License  

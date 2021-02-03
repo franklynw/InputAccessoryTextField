@@ -27,6 +27,12 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     private let viewId: String
     
     
+    /// Initialiser for InputAccessoryTextField
+    /// - Parameters:
+    ///   - view: the parent view (usually the main view for the screen) - must conform to Identifiable, where id is a String
+    ///   - tag: a tag which is used if you want to enable tabbing between textFields
+    ///   - placeholder: the placeholder text
+    ///   - text: a binding to the String var for the input
     public init(parentView view: I, tag: Int? = nil, placeholder: String? = nil, text: Binding<String>) {
         viewId = view.id
         self.accessoryController = TextFieldManager.shared.controller(forViewId: viewId)
