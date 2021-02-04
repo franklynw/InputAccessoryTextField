@@ -3,6 +3,7 @@
 A (almost) drop-in replacement for SwiftUI's TextField, but with a customisable input accessory view.
 A significant part of this is based on work by Swift Student - [SwiftUI InputAccessoryView](https://swiftstudent.com/2020-01-15-swiftui-inputaccessoryview/) - but I've removed the need for an accessoryViewController instance in the containing view, and added quite a bit in the way of customisation options for the consumer.
 
+<img src="Resources//Example1.png" alt="Example 1"/>
 
 ## Installation
 
@@ -14,6 +15,8 @@ In Xcode:
 
 
 ## Example
+
+> **NB:** All examples require `import InputAccessoryTextField` at the top of the source file
 
 The only additional requirement for using an InputAccessoryTextField instead of a TextField is that the containing view conforms to Identifiable, with a String id.
 
