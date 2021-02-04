@@ -115,6 +115,11 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 In addition to the above, you can also specify the foregroundColor, which sets the text colour.
 
 
+## Dependencies
+
+Requires FWCommonProtocols, which is linked. GitHub page is [here](https://github.com/franklynw/FWCommonProtocols)
+
+
 ## License  
 
 `InputAccessoryTextField` is available under the MIT license

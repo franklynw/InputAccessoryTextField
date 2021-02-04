@@ -5,6 +5,7 @@
 //  Built on by Franklyn Weber on 01/02/2021.
 
 import SwiftUI
+import FWCommonProtocols
 
 
 public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable where I.ID == String {
@@ -19,7 +20,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     internal var disableAutocorrection = false
     internal var autocapitalization: UITextAutocapitalizationType = .sentences
     internal var commitAction: (() -> ())?
-    internal var doneButtonImageName: ImageNaming?
+    internal var doneButtonImageName: SystemImageNaming?
     
     internal let accessoryController: Controller
     internal let tag: Int?
@@ -52,7 +53,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
         
         textField.viewId = viewId
         textField.action = commitAction
-        textField.doneButtonImageName = doneButtonImageName?.imageName
+        textField.doneButtonImageName = doneButtonImageName?.systemImageName
         
         textField.inputAccessoryView = accessoryController.view
         textField.autocorrectionType = disableAutocorrection ? .no : .yes

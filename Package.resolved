@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "FWCommonProtocols",
+        "repositoryURL": "https://github.com/franklynw/FWCommonProtocols.git",
+        "state": {
+          "branch": null,
+          "revision": "f4338a068c1b719e32319b22eb79bb8b2ca544d8",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

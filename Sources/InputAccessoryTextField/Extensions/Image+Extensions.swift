@@ -5,16 +5,17 @@
 //
 
 import SwiftUI
+import FWCommonProtocols
 
 
 extension Image {
     
-    enum SystemName: String, ImageNaming {
+    enum SystemName: String, SystemImageNaming {
         case chevronLeft = "chevron.left"
         case chevronRight = "chevron.right"
         case keyboardDismiss = "keyboard.chevron.compact.down"
         
-        var imageName: String {
+        var systemImageName: String {
             rawValue
         }
     }

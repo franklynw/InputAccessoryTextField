@@ -88,9 +88,9 @@ internal struct AccessoryView: View {
         
         if let currentIndex = currentIndex() {
             let textField = textFields[currentIndex]
-            imageName = textField.doneButtonImageName ?? Image.SystemName.keyboardDismiss.imageName
+            imageName = textField.doneButtonImageName ?? Image.SystemName.keyboardDismiss.systemImageName
         } else {
-            imageName = Image.SystemName.keyboardDismiss.imageName
+            imageName = Image.SystemName.keyboardDismiss.systemImageName
         }
         
         // because the system images have varying aspect ratios, if we put it in an HStack with some space
