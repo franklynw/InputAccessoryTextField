@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FWCommonProtocols
 
 
 extension InputAccessoryTextField {
@@ -85,7 +86,7 @@ extension InputAccessoryTextField {
     /// - Parameters:
     ///   - buttonImage: the image for the accessory view's "Done" button
     ///   - action: an additional action to perform when the keyboard is dismissed
-    public func done(buttonImage: ImageNaming? = nil, action: (() -> ())? = nil) -> Self {
+    public func done(buttonImage: SystemImageNaming? = nil, action: (() -> ())? = nil) -> Self {
         var copy = self
         copy.commitAction = action
         copy.doneButtonImageName = buttonImage

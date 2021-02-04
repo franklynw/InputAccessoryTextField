@@ -13,11 +13,11 @@ let package = Package(
             name: "InputAccessoryTextField",
             targets: ["InputAccessoryTextField"]),
     ],
-    dependencies: [],
+    dependencies: [.package(name: "FWCommonProtocols", url: "https://github.com/franklynw/FWCommonProtocols.git", .upToNextMajor(from: "1.0.0"))],
     targets: [
         .target(
             name: "InputAccessoryTextField",
-            dependencies: []),
+            dependencies: ["FWCommonProtocols"]),
         .testTarget(
             name: "InputAccessoryTextFieldTests",
             dependencies: ["InputAccessoryTextField"]),
