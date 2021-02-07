@@ -86,6 +86,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
         
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         textField.setContentCompressionResistancePriority(.required, for: .vertical)
+        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         textField.placeholder = placeholder
         textField.text = text
