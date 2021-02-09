@@ -18,40 +18,49 @@ internal struct AccessoryView: View {
     
     var currentTextFieldTag = 0
     
+    static let barHeight: CGFloat = 44
+    
     var body: some View {
         
-        HStack {
+        ZStack {
             
-            Button(action: previousTextField, label: {
-                Image(.chevronLeft)
-                    .resizable()
-                    .frame(width: 18, height: 27)
-                    .font(Font.title.weight(.semibold))
-                    .accentColor(Color(.lightGray))
-            })
-            .opacity(previousButtonOpacity())
-            .disabled(currentIndex() == 0)
-            .padding()
+            Rectangle()
+                .foregroundColor(Color(.systemBackground))
+                .frame(height: Self.barHeight)
             
-            Button(action: nextTextField, label: {
-                Image(.chevronRight)
-                    .resizable()
-                    .frame(width: 18, height: 27)
-                    .font(Font.title.weight(.semibold))
-                    .accentColor(Color(.lightGray))
-            })
-            .opacity(nextButtonOpacity())
-            .disabled(currentIndex() == textFields.count - 1)
-            
-            Spacer()
-            
-            Button(action: dismissCurrentTextField, label: {
-                doneButtonImage()
-            })
-            .padding()
-            
+            HStack {
+                
+                Button(action: previousTextField, label: {
+                    Image(.chevronLeft)
+                        .resizable()
+                        .frame(width: 18, height: 27)
+                        .font(Font.title.weight(.semibold))
+                        .accentColor(Color(.lightGray))
+                })
+                .opacity(previousButtonOpacity())
+                .disabled(currentIndex() == 0)
+                .padding()
+                
+                Button(action: nextTextField, label: {
+                    Image(.chevronRight)
+                        .resizable()
+                        .frame(width: 18, height: 27)
+                        .font(Font.title.weight(.semibold))
+                        .accentColor(Color(.lightGray))
+                })
+                .opacity(nextButtonOpacity())
+                .disabled(currentIndex() == textFields.count - 1)
+                
+                Spacer()
+                
+                Button(action: dismissCurrentTextField, label: {
+                    doneButtonImage()
+                })
+                .padding()
+                
+            }
+            .accentColor(.blue)
         }
-        .accentColor(.blue)
     }
     
     func currentIndex() -> Int? {
