@@ -18,8 +18,7 @@ internal class Controller: UIHostingController<AccessoryView> {
     
     private override init(rootView: AccessoryView) {
         super.init(rootView: rootView)
-        view.frame = CGRect(x: 0, y: 0, width: 0 , height: 40)
-        view.backgroundColor = .systemBackground
+        view.frame = CGRect(x: 0, y: 0, width: 0 , height: AccessoryView.barHeight)
     }
     
     @objc
