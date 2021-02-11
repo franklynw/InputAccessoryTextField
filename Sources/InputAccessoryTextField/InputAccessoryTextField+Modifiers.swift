@@ -72,6 +72,13 @@ extension InputAccessoryTextField {
         return copy
     }
     
+    /// Use this to show the clear button while editing the textField
+    public var showsClearButton: Self {
+        var copy = self
+        copy._showsClearButton = true
+        return copy
+    }
+    
     /// Tell the textField to become the first responder
     /// - Parameter shouldStart: if set to true (default) then it will become the first responder
     public func startInput(_ shouldStart: Bool = true) -> Self {

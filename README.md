@@ -70,6 +70,13 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
     .returnKeyType(.done)
 ```
 
+### Show the "Clear" button (while editing)
+
+```swift
+InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .showsClearButton
+```
+
 ### Autocorrection
 
 Autocorrection can be switched on or off -

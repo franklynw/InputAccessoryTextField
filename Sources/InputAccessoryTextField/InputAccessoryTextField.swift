@@ -19,6 +19,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     internal var returnKeyType: UIReturnKeyType?
     internal var disableAutocorrection = false
     internal var autocapitalization: UITextAutocapitalizationType = .sentences
+    internal var _showsClearButton = false
     internal var commitAction: (() -> ())?
     internal var doneButtonImageName: SystemImageNaming?
     
@@ -73,6 +74,9 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
         }
         if let returnKeyType = returnKeyType {
             textField.returnKeyType = returnKeyType
+        }
+        if _showsClearButton {
+            textField.clearButtonMode = .whileEditing
         }
         
         accessoryController.addTextField(textField)
