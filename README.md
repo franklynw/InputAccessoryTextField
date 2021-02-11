@@ -99,6 +99,15 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 
 The modifier can also take a Bool parameter to base its behaviour on another property.
 
+### Resign first responder
+
+Adding this modifier & passing in true will resign the first responder from the tagged InputAccessoryTextField which is currently the first responder
+
+```swift
+InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .endInput(shouldEndInput)
+```
+
 ### Customise the "Done" button on the input accessory view
 
 Pass in a system image name to use that for the button. You can also set the action to be invoked when the button is pressed, in addition to it dismissing the keyboard. If no image is specified, it will default to "keyboard.chevron.compact.down"

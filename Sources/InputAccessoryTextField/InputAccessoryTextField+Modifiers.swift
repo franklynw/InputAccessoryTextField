@@ -74,11 +74,22 @@ extension InputAccessoryTextField {
     
     /// Tell the textField to become the first responder
     /// - Parameter shouldStart: if set to true (default) then it will become the first responder
-    public func startInput(_ shouldStart: (() -> Bool)? = nil) -> Self {
+    public func startInput(_ shouldStart: Bool = true) -> Self {
         guard let tag = tag else {
             return self
         }
-        accessoryController.startInput(tag)
+        if shouldStart {
+            accessoryController.startInput(tag)
+        }
+        return self
+    }
+    
+    /// Tell all tagged InputAccessoryTextFields to resignFirstResponder
+    /// - Parameter shouldEnd: if set to true then it will resign the first responder from the tagged InputAccessoryTextField which is currently the first responder
+    public func endInput(_ shouldEnd: Bool) -> Self {
+        if shouldEnd {
+            accessoryController.endInput()
+        }
         return self
     }
     

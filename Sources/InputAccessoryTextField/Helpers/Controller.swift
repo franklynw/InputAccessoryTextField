@@ -59,4 +59,10 @@ internal class Controller: UIHostingController<AccessoryView> {
             self.rootView.textFields[tag].becomeFirstResponder()
         }
     }
+    
+    func endInput() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.rootView.textFields.forEach { $0.resignFirstResponder() }
+        }
+    }
 }
