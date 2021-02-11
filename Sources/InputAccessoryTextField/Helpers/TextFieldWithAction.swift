@@ -12,6 +12,8 @@ public class TextFieldWithAction: UITextField {
     
     internal var action: (() -> ())?
     internal var viewId: String?
+    internal var toolBarColor: UIColor?
+    internal var toolBarTintColor: UIColor?
     internal var doneButtonImageName: String?
     internal var insets = UIEdgeInsets.zero
     

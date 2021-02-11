@@ -1,5 +1,5 @@
 //
-//  AccessoryView.swift
+//  InputAccessoryView.swift
 //  
 //
 //  Created by Franklyn Weber on 03/02/2021.
@@ -8,7 +8,11 @@
 import SwiftUI
 
 
-internal struct AccessoryView: View {
+public struct InputAccessoryView: View {
+    
+    public static var barColor: Color?
+    public static var barTintColor: Color?
+    public static var dismissKeyboardButtonSystemImageName: String?
     
     var textFields = [TextFieldWithAction]() {
         didSet {
@@ -20,12 +24,12 @@ internal struct AccessoryView: View {
     
     static let barHeight: CGFloat = 44
     
-    var body: some View {
+    public var body: some View {
         
         ZStack {
             
             Rectangle()
-                .foregroundColor(Color(.systemBackground))
+                .foregroundColor(barColor())
                 .frame(height: Self.barHeight)
             
             HStack {
@@ -35,7 +39,7 @@ internal struct AccessoryView: View {
                         .resizable()
                         .frame(width: 18, height: 27)
                         .font(Font.title.weight(.semibold))
-                        .accentColor(Color(.lightGray))
+                        .accentColor(buttonColor())
                 })
                 .opacity(previousButtonOpacity())
                 .disabled(currentIndex() == 0)
@@ -46,7 +50,7 @@ internal struct AccessoryView: View {
                         .resizable()
                         .frame(width: 18, height: 27)
                         .font(Font.title.weight(.semibold))
-                        .accentColor(Color(.lightGray))
+                        .accentColor(buttonColor())
                 })
                 .opacity(nextButtonOpacity())
                 .disabled(currentIndex() == textFields.count - 1)
@@ -97,9 +101,9 @@ internal struct AccessoryView: View {
         
         if let currentIndex = currentIndex() {
             let textField = textFields[currentIndex]
-            imageName = textField.doneButtonImageName ?? Image.SystemName.keyboardDismiss.systemImageName
+            imageName = Self.dismissKeyboardButtonSystemImageName ?? textField.doneButtonImageName ?? Image.SystemName.keyboardDismiss.systemImageName
         } else {
-            imageName = Image.SystemName.keyboardDismiss.systemImageName
+            imageName = Self.dismissKeyboardButtonSystemImageName ?? Image.SystemName.keyboardDismiss.systemImageName
         }
         
         // because the system images have varying aspect ratios, if we put it in an HStack with some space
@@ -110,13 +114,43 @@ internal struct AccessoryView: View {
             Image(systemName: imageName)
                 .resizable()
                 .font(Font.title.weight(.semibold))
-                .accentColor(Color(.lightGray))
+                .accentColor(buttonColor())
                 .aspectRatio(contentMode: .fit)
                 .frame(alignment: .trailing)
         }
         .frame(width: 100, height: 26)
         
         return AnyView(image)
+    }
+    
+    private func buttonColor() -> Color? {
+        
+        guard let currentIndex = currentIndex() else {
+            return Self.barTintColor ?? Color(.lightGray)
+        }
+        
+        let textField = textFields[currentIndex]
+        
+        guard let toolBarTintColor = textField.toolBarTintColor else {
+            return Self.barTintColor ?? Color(.lightGray)
+        }
+        
+        return Color(toolBarTintColor)
+    }
+    
+    private func barColor() -> Color? {
+        
+        guard let currentIndex = currentIndex() else {
+            return Self.barColor ?? Color(.systemBackground)
+        }
+        
+        let textField = textFields[currentIndex]
+        
+        guard let toolBarColor = textField.toolBarColor else {
+            return Self.barColor ?? Color(.systemBackground)
+        }
+        
+        return Color(toolBarColor)
     }
     
     private func previousButtonOpacity() -> Double {

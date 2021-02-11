@@ -34,7 +34,7 @@ extension InputAccessoryTextField {
     
     /// Set the text colour of the textField
     /// - Parameter foregroundColor: a Color
-    public func foregroundColor(_ foregroundColor: Color) -> Self {
+    public func foregroundColor(_ foregroundColor: Color?) -> Self {
         var copy = self
         copy.foregroundColor = foregroundColor
         return copy
@@ -42,9 +42,25 @@ extension InputAccessoryTextField {
     
     /// Set the background colour of the textField
     /// - Parameter backgroundColor: a Color
-    public func backgroundColor(_ backgroundColor: Color) -> Self {
+    public func backgroundColor(_ backgroundColor: Color?) -> Self {
         var copy = self
         copy.backgroundColor = backgroundColor
+        return copy
+    }
+    
+    /// Set the background colour of the toolBar
+    /// - Parameter toolBarColor: a Color
+    public func toolBarColor(_ toolBarColor: Color?) -> Self {
+        var copy = self
+        copy.toolBarColor = toolBarColor
+        return copy
+    }
+    
+    /// Set the colour of the toolBar buttons
+    /// - Parameter toolBarTintColor: a Color
+    public func toolBarTintColor(_ toolBarTintColor: Color?) -> Self {
+        var copy = self
+        copy.toolBarTintColor = toolBarTintColor
         return copy
     }
     
@@ -114,6 +130,13 @@ extension InputAccessoryTextField {
             accessoryController.endInput()
         }
         return self
+    }
+    
+    /// Use this to hide the accessory toolBar
+    public var hideToolBar: Self {
+        var copy = self
+        copy._hideToolBar = true
+        return copy
     }
     
     /// Set the image for the accessory view's "Done" button, and any additional action to perform when the keyboard is dismissed

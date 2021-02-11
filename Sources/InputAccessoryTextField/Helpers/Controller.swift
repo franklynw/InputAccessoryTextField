@@ -8,17 +8,17 @@
 import SwiftUI
 
 
-internal class Controller: UIHostingController<AccessoryView> {
+internal class Controller: UIHostingController<InputAccessoryView> {
     
     private var hasStartedInput = false
     
     convenience init () {
-        self.init(rootView: AccessoryView())
+        self.init(rootView: InputAccessoryView())
     }
     
-    private override init(rootView: AccessoryView) {
+    private override init(rootView: InputAccessoryView) {
         super.init(rootView: rootView)
-        view.frame = CGRect(x: 0, y: 0, width: 0 , height: AccessoryView.barHeight)
+        view.frame = CGRect(x: 0, y: 0, width: 0 , height: InputAccessoryView.barHeight)
     }
     
     @objc

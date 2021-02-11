@@ -16,6 +16,8 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     internal var font: UIFont?
     internal var foregroundColor: Color?
     internal var backgroundColor: Color?
+    internal var toolBarColor: Color?
+    internal var toolBarTintColor: Color?
     internal var keyboardType: UIKeyboardType?
     internal var returnKeyType: UIReturnKeyType?
     internal var disableAutocorrection = false
@@ -24,6 +26,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     internal var insets = EdgeInsets()
     internal var commitAction: (() -> ())?
     internal var doneButtonImageName: SystemImageNaming?
+    internal var _hideToolBar = false
     
     internal let accessoryController: Controller
     internal let tag: Int?
@@ -65,7 +68,10 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
         textField.doneButtonImageName = doneButtonImageName?.systemImageName
         textField.insets = UIEdgeInsets(top: insets.top, left: insets.leading, bottom: insets.bottom, right: insets.trailing)
         
-        textField.inputAccessoryView = accessoryController.view
+        if !_hideToolBar {
+            textField.inputAccessoryView = accessoryController.view
+        }
+        
         textField.autocorrectionType = disableAutocorrection ? .no : .yes
         textField.autocapitalizationType = autocapitalization
         
@@ -80,6 +86,12 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
         }
         if let backgroundColor = backgroundColor {
             textField.backgroundColor = backgroundColor.uiColor
+        }
+        if let toolBarColor = toolBarColor {
+            textField.toolBarColor = toolBarColor.uiColor
+        }
+        if let toolBarTintColor = toolBarTintColor {
+            textField.toolBarTintColor = toolBarTintColor.uiColor
         }
         if let keyboardType = keyboardType {
             textField.keyboardType = keyboardType

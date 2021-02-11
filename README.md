@@ -69,6 +69,36 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
     .backgroundColor(.lightGray)
 ```
 
+### ToolBar background colour
+
+Set the background colour of the textField's input accessory view ToolBar
+
+```swift
+InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .toolBarColor(.lightGray)
+```
+
+or using the static var (once per view rather than for each textField) - 
+
+```swift
+InputAccessoryView.barColor = .purple
+```
+
+### ToolBar tint colour
+
+Set the colour of the textField's input accessory view buttons
+
+```swift
+InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .toolBarTintColor(.darkGray)
+```
+
+or using the static var (once per view rather than for each textField) - 
+
+```swift
+InputAccessoryView.barTintColor = .green
+```
+
 ###  Keyboard Type
 
 You can set the keyboard type -
@@ -150,9 +180,20 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
     }
 ```
 
-### Standard behaviour
+You can also use the static var (once per view rather than for each textField) to set the done button image - 
 
-In addition to the above, you can also specify the foregroundColor, which sets the text colour.
+```swift
+InputAccessoryView.dismissKeyboardButtonSystemImageName = "checkmark"
+```
+
+### Hide the accessory view
+
+Sometimes you may want to hide the accessory view, while still keeping all the other features of the InputAccessoryTextField -
+
+```swift
+InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .hideToolBar
+```
 
 
 ## Dependencies
