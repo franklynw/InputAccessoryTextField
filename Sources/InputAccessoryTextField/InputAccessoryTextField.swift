@@ -15,6 +15,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     internal var placeholder: String?
     internal var font: UIFont?
     internal var foregroundColor: Color?
+    internal var backgroundColor: Color?
     internal var keyboardType: UIKeyboardType?
     internal var returnKeyType: UIReturnKeyType?
     internal var disableAutocorrection = false
@@ -70,6 +71,9 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
         }
         if let foregroundColor = foregroundColor {
             textField.textColor = foregroundColor.uiColor
+        }
+        if let backgroundColor = backgroundColor {
+            textField.backgroundColor = backgroundColor.uiColor
         }
         if let keyboardType = keyboardType {
             textField.keyboardType = keyboardType

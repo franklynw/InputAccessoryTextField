@@ -52,6 +52,22 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
     .font(.title, weight: .semibold)
 ```
 
+### Text colour
+
+```swift
+InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .foregroundColor(.red)
+```
+
+### Background colour
+
+Set the background colour of the textField
+
+```swift
+InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .backgroundColor(.lightGray)
+```
+
 ###  Keyboard Type
 
 You can set the keyboard type -

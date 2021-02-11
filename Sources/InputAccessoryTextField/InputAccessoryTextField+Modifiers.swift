@@ -40,6 +40,14 @@ extension InputAccessoryTextField {
         return copy
     }
     
+    /// Set the background colour of the textField
+    /// - Parameter backgroundColor: a Color
+    public func backgroundColor(_ backgroundColor: Color) -> Self {
+        var copy = self
+        copy.backgroundColor = backgroundColor
+        return copy
+    }
+    
     /// Set the keyboard type of the textField
     /// - Parameter keyboardType: a UIKeyboardType case
     public func keyboardType(_ keyboardType: UIKeyboardType) -> Self {
