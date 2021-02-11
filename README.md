@@ -19,11 +19,12 @@ In Xcode:
 > **NB:** All examples require `import InputAccessoryTextField` at the top of the source file
 
 The only additional requirement for using an InputAccessoryTextField instead of a TextField is that the containing view conforms to Identifiable, with a String id.
+The placeholder is an Enum case, "PlaceHolder", which allows for a normal String - .text("My placeholder") - or an attributed string - .attributed(myNSAttributedString)
 
 ```swift
 var body: some View {
 
-    InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    InputAccessoryTextField(parentView: self, tag: 1, placeholder: .text("Enter search text"), text: viewModel.searchTerm)
         .returnKeyType(.done)
         .foregroundColor(Color(viewModel.titleColor))
         .disableAutocorrection(!viewModel.autocorrect)

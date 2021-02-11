@@ -12,7 +12,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     
     @Binding private var text: String
     
-    internal var placeholder: String?
+    internal var placeholder: PlaceHolder?
     internal var font: UIFont?
     internal var foregroundColor: Color?
     internal var backgroundColor: Color?
@@ -31,13 +31,19 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     private let viewId: String
     
     
+    public enum PlaceHolder {
+        case text(String)
+        case attributed(NSAttributedString)
+    }
+    
+    
     /// Initialiser for InputAccessoryTextField
     /// - Parameters:
     ///   - view: the parent view (usually the main view for the screen) - must conform to Identifiable, where id is a String
     ///   - tag: a tag which is used if you want to enable tabbing between textFields
-    ///   - placeholder: the placeholder text
+    ///   - placeholder: the placeholder, which is a PlaceHolder enum case - .text(placeholder string) or .attributed(attributed placeholder string)
     ///   - text: a binding to the String var for the input
-    public init(parentView view: I, tag: Int? = nil, placeholder: String? = nil, text: Binding<String>) {
+    public init(parentView view: I, tag: Int? = nil, placeholder: PlaceHolder? = nil, text: Binding<String>) {
         viewId = view.id
         self.accessoryController = TextFieldManager.shared.controller(forViewId: viewId)
         self.tag = tag
@@ -98,7 +104,15 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
         textField.setContentCompressionResistancePriority(.required, for: .vertical)
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
-        textField.placeholder = placeholder
+        switch placeholder {
+        case .text(let placeholder):
+            textField.placeholder = placeholder
+        case .attributed(let attributedPlaceHolder):
+            textField.attributedPlaceholder = attributedPlaceHolder
+        case .none:
+            break
+        }
+        
         textField.text = text
         textField.font = font
     }
