@@ -72,6 +72,14 @@ extension InputAccessoryTextField {
         return copy
     }
     
+    /// Set the insets of the textField (or the padding around the text in the field)
+    /// - Parameter insets: EdgeInsets
+    public func insets(_ insets: EdgeInsets) -> Self {
+        var copy = self
+        copy.insets = insets
+        return copy
+    }
+    
     /// Use this to show the clear button while editing the textField
     public var showsClearButton: Self {
         var copy = self

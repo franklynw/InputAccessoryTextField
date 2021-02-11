@@ -20,6 +20,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
     internal var disableAutocorrection = false
     internal var autocapitalization: UITextAutocapitalizationType = .sentences
     internal var _showsClearButton = false
+    internal var insets = EdgeInsets()
     internal var commitAction: (() -> ())?
     internal var doneButtonImageName: SystemImageNaming?
     
@@ -55,6 +56,7 @@ public struct InputAccessoryTextField<I: Identifiable>: UIViewRepresentable wher
         textField.viewId = viewId
         textField.action = commitAction
         textField.doneButtonImageName = doneButtonImageName?.systemImageName
+        textField.insets = UIEdgeInsets(top: insets.top, left: insets.leading, bottom: insets.bottom, right: insets.trailing)
         
         textField.inputAccessoryView = accessoryController.view
         textField.autocorrectionType = disableAutocorrection ? .no : .yes

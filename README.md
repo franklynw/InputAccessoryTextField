@@ -95,6 +95,13 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
     .autocapitalization(viewModel.autocapitalizationPolicy)
 ```
 
+### Set the insets (the padding around the text within the textField)
+
+```swift
+InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+    .insets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+```
+
 ### Become first responder
 
 You can make the textField automatically become the first resonder (ie, it brings up the keyboard as soon as it appears) -
