@@ -1,5 +1,5 @@
 //
-//  InputAccessoryTextField+Modifiers.swift
+//  InputAccessory.TextField+Modifiers.swift
 //  
 //
 //  Created by Franklyn Weber on 03/02/2021.
@@ -9,7 +9,7 @@ import SwiftUI
 import FWCommonProtocols
 
 
-extension InputAccessoryTextField {
+extension InputAccessory.TextField {
     
     /// Set the font of the textField
     /// - Parameter font: a UIFont instance

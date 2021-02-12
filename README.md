@@ -24,7 +24,7 @@ The placeholder is an Enum case, "PlaceHolder", which allows for a normal String
 ```swift
 var body: some View {
 
-    InputAccessoryTextField(parentView: self, tag: 1, placeholder: .text("Enter search text"), text: viewModel.searchTerm)
+    InputAccessory.TextField(parentView: self, tag: 1, placeholder: .text("Enter search text"), text: viewModel.searchTerm)
         .returnKeyType(.done)
         .foregroundColor(Color(viewModel.titleColor))
         .disableAutocorrection(!viewModel.autocorrect)
@@ -42,21 +42,21 @@ There are some additional features apart from the input accessory view -
 You can set the textField's font using either a UIFont, or with Font.TextStyle & Font.Weight
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .font(UIFont.systemFont(ofSize: 18, weight: .semibold))
 ```
 
 or
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .font(.title, weight: .semibold)
 ```
 
 ### Text colour
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .foregroundColor(.red)
 ```
 
@@ -65,7 +65,7 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 Set the background colour of the textField
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .backgroundColor(.lightGray)
 ```
 
@@ -74,14 +74,14 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 Set the background colour of the textField's input accessory view ToolBar
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .toolBarColor(.lightGray)
 ```
 
 or using the static var (once per view rather than for each textField) - 
 
 ```swift
-InputAccessoryView.barColor = .purple
+InputAccessory.barColor = .purple
 ```
 
 ### ToolBar tint colour
@@ -89,14 +89,14 @@ InputAccessoryView.barColor = .purple
 Set the colour of the textField's input accessory view buttons
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .toolBarTintColor(.darkGray)
 ```
 
 or using the static var (once per view rather than for each textField) - 
 
 ```swift
-InputAccessoryView.barTintColor = .green
+InputAccessory.barTintColor = .green
 ```
 
 ###  Keyboard Type
@@ -104,7 +104,7 @@ InputAccessoryView.barTintColor = .green
 You can set the keyboard type -
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .keyboardType(.numberPad)
 ```
 
@@ -113,14 +113,14 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 You can set the return key type -
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .returnKeyType(.done)
 ```
 
 ### Show the "Clear" button (while editing)
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .showsClearButton
 ```
 
@@ -129,7 +129,7 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 Autocorrection can be switched on or off -
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .disableAutocorrection(!viewModel.autocorrect)
 ```
 
@@ -138,14 +138,14 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 The autocapitalisation policy can be set -
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .autocapitalization(viewModel.autocapitalizationPolicy)
 ```
 
 ### Set the insets (the padding around the text within the textField)
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .insets(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
 ```
 
@@ -154,7 +154,7 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 You can make the textField automatically become the first resonder (ie, it brings up the keyboard as soon as it appears) -
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .startInput()
 ```
 
@@ -165,7 +165,7 @@ The modifier can also take a Bool parameter to base its behaviour on another pro
 Adding this modifier & passing in true will resign the first responder from the tagged InputAccessoryTextField which is currently the first responder
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .endInput(shouldEndInput)
 ```
 
@@ -174,7 +174,7 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 Pass in a system image name to use that for the button. You can also set the action to be invoked when the button is pressed, in addition to it dismissing the keyboard. If no image is specified, it will default to "keyboard.chevron.compact.down"
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .done(buttonImage: "rectangle.and.pencil.and.ellipsis") {
         // do something
     }
@@ -183,7 +183,7 @@ InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search tex
 You can also use the static var (once per view rather than for each textField) to set the done button image - 
 
 ```swift
-InputAccessoryView.dismissKeyboardButtonSystemImageName = "checkmark"
+InputAccessory.dismissKeyboardButtonSystemImageName = "checkmark"
 ```
 
 ### Hide the accessory view
@@ -191,7 +191,7 @@ InputAccessoryView.dismissKeyboardButtonSystemImageName = "checkmark"
 Sometimes you may want to hide the accessory view, while still keeping all the other features of the InputAccessoryTextField -
 
 ```swift
-InputAccessoryTextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
+InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
     .hideToolBar
 ```
 
