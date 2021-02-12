@@ -74,9 +74,10 @@ extension InputAccessory.TextField {
     
     /// Set the return key type of the textField
     /// - Parameter returnKeyType: a UIReturnKeyType case
-    public func returnKeyType(_ returnKeyType: UIReturnKeyType) -> Self {
+    public func returnKey(type returnKeyType: UIReturnKeyType = .default, action: (() -> ())? = nil) -> Self {
         var copy = self
         copy.returnKeyType = returnKeyType
+        copy.returnKeyAction = action
         return copy
     }
     
@@ -139,14 +140,14 @@ extension InputAccessory.TextField {
         return copy
     }
     
-    /// Set the image for the accessory view's "Done" button, and any additional action to perform when the keyboard is dismissed
+    /// Set the image for the accessory view's "Done" button, and any action to perform when the keyboard is dismissed using this button
     /// - Parameters:
-    ///   - buttonImage: the image for the accessory view's "Done" button
-    ///   - action: an additional action to perform when the keyboard is dismissed
-    public func done(buttonImage: SystemImageNaming? = nil, action: (() -> ())? = nil) -> Self {
+    ///   - image: the system image name for the accessory view's "Done" button
+    ///   - action: an action to perform when the keyboard is dismissed with this button
+    public func toolBarDoneButton(_ image: SystemImageNaming? = nil, action: (() -> ())? = nil) -> Self {
         var copy = self
-        copy.commitAction = action
-        copy.doneButtonImageName = buttonImage
+        copy.keyboardDismissButtonAction = action
+        copy.doneButtonImageName = image
         return copy
     }
 }

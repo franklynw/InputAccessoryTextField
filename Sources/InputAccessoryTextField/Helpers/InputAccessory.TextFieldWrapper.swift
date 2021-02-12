@@ -10,7 +10,7 @@ import UIKit
 
 extension InputAccessory {
     
-    public class TextFieldWrapper: UITextField {
+    class TextFieldWrapper: UITextField {
         
         internal var action: (() -> ())?
         internal var viewId: String?
@@ -20,15 +20,15 @@ extension InputAccessory {
         internal var insets = UIEdgeInsets.zero
         
         
-        override public func textRect(forBounds bounds: CGRect) -> CGRect {
+        override func textRect(forBounds bounds: CGRect) -> CGRect {
             return bounds.inset(by: insets)
         }
         
-        override public func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
             return bounds.inset(by: insets)
         }
         
-        override public func editingRect(forBounds bounds: CGRect) -> CGRect {
+        override func editingRect(forBounds bounds: CGRect) -> CGRect {
             return bounds.inset(by: insets)
         }
         

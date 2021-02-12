@@ -26,7 +26,8 @@ extension InputAccessory {
         internal var autocapitalization: UITextAutocapitalizationType = .sentences
         internal var _showsClearButton = false
         internal var insets = EdgeInsets()
-        internal var commitAction: (() -> ())?
+        internal var returnKeyAction: (() -> ())?
+        internal var keyboardDismissButtonAction: (() -> ())?
         internal var doneButtonImageName: SystemImageNaming?
         internal var _hideToolBar = false
         
@@ -60,13 +61,13 @@ extension InputAccessory {
             return Coordinator(self)
         }
         
-        public func makeUIView(context: UIViewRepresentableContext<TextField>) -> TextFieldWrapper {
+        public func makeUIView(context: UIViewRepresentableContext<TextField>) -> UITextField {
             
             let textField = TextFieldWrapper()
             textField.delegate = context.coordinator
             
             textField.viewId = viewId
-            textField.action = commitAction
+            textField.action = returnKeyAction
             textField.doneButtonImageName = doneButtonImageName?.systemImageName
             textField.insets = UIEdgeInsets(top: insets.top, left: insets.leading, bottom: insets.bottom, right: insets.trailing)
             
@@ -110,7 +111,7 @@ extension InputAccessory {
             return textField
         }
         
-        public func updateUIView(_ uiView: TextFieldWrapper, context: UIViewRepresentableContext<TextField>) {
+        public func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextField>) {
             
             let textField = uiView
             
@@ -131,7 +132,7 @@ extension InputAccessory {
             textField.font = font
         }
         
-        public static func dismantleUIView(_ uiView: TextFieldWrapper, coordinator: TextField.Coordinator) {
+        public static func dismantleUIView(_ uiView: UITextField, coordinator: TextField.Coordinator) {
             coordinator.parent.accessoryController.removeTextField(uiView)
         }
         
@@ -156,7 +157,7 @@ extension InputAccessory {
             
             public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
                 textField.resignFirstResponder()
-                parent.commitAction?()
+                parent.returnKeyAction?()
                 return true
             }
         }

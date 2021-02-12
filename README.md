@@ -110,11 +110,13 @@ InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search te
 
 ### Return Key Type
 
-You can set the return key type -
+You can set the return key type and its action -
 
 ```swift
 InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
-    .returnKeyType(.done)
+    .returnKey(type: .done) {
+        viewModel.beginSearch()
+    }
 ```
 
 ### Show the "Clear" button (while editing)
@@ -175,7 +177,7 @@ Pass in a system image name to use that for the button. You can also set the act
 
 ```swift
 InputAccessory.TextField(parentView: self, tag: 1, placeholder: "Enter search text", text: viewModel.searchTerm)
-    .done(buttonImage: "rectangle.and.pencil.and.ellipsis") {
+    .toolBarDoneButton("rectangle.and.pencil.and.ellipsis") {
         // do something
     }
 ```

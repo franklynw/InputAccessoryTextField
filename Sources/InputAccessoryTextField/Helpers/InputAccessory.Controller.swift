@@ -32,7 +32,7 @@ extension InputAccessory {
             rootView.textFields.append(textField)
         }
         
-        func removeTextField(_ textField: TextFieldWrapper) {
+        func removeTextField(_ textField: UITextField) {
             rootView.textFields.removeAll(where: {$0 == textField})
         }
         
