@@ -11,6 +11,14 @@ import FWCommonProtocols
 
 extension InputAccessory.TextField {
     
+    /// Set the textField's placeholder text
+    /// - Parameter placeholder: the text to use for the placeholder
+    public func placeholder(_ placeholder: PlaceHolder?) -> Self {
+        var copy = self
+        copy.placeholder = placeholder
+        return copy
+    }
+    
     /// Set the font of the textField
     /// - Parameter font: a UIFont instance
     public func font(_ font: UIFont) -> Self {

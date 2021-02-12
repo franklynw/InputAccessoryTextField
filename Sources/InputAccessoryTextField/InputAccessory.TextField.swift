@@ -47,13 +47,11 @@ extension InputAccessory {
         /// - Parameters:
         ///   - view: the parent view (usually the main view for the screen) - must conform to Identifiable, where id is a String
         ///   - tag: a tag which is used if you want to enable tabbing between textFields
-        ///   - placeholder: the placeholder, which is a PlaceHolder enum case - .text(placeholder string) or .attributed(attributed placeholder string)
         ///   - text: a binding to the String var for the input
-        public init(parentView view: I, tag: Int? = nil, placeholder: PlaceHolder? = nil, text: Binding<String>) {
+        public init(parentView view: I, tag: Int? = nil, text: Binding<String>) {
             viewId = view.id
             self.accessoryController = TextFieldManager.shared.controller(forViewId: viewId)
             self.tag = tag
-            self.placeholder = placeholder
             self._text = text
         }
         
@@ -67,7 +65,7 @@ extension InputAccessory {
             textField.delegate = context.coordinator
             
             textField.viewId = viewId
-            textField.action = returnKeyAction
+            textField.action = keyboardDismissButtonAction
             textField.doneButtonImageName = doneButtonImageName?.systemImageName
             textField.insets = UIEdgeInsets(top: insets.top, left: insets.leading, bottom: insets.bottom, right: insets.trailing)
             
