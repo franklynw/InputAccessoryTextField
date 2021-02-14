@@ -64,10 +64,35 @@ extension InputAccessory {
             let textField = TextFieldWrapper()
             textField.delegate = context.coordinator
             
+            accessoryController.addTextField(textField)
+            
+            return textField
+        }
+        
+        public func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextField>) {
+            
+            uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            uiView.setContentCompressionResistancePriority(.required, for: .vertical)
+            uiView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            
+            uiView.text = text
+            
+            guard let textField = uiView as? TextFieldWrapper else {
+                return
+            }
+            
+            updateProperties(for: textField)
+        }
+        
+        public static func dismantleUIView(_ uiView: UITextField, coordinator: TextField.Coordinator) {
+            coordinator.parent.accessoryController.removeTextField(uiView)
+        }
+        
+        private func updateProperties(for textField: TextFieldWrapper) {
+            
             textField.viewId = viewId
             textField.action = keyboardDismissButtonAction
             textField.doneButtonImageName = doneButtonImageName?.systemImageName
-            textField.insets = UIEdgeInsets(top: insets.top, left: insets.leading, bottom: insets.bottom, right: insets.trailing)
             
             if !_hideToolBar {
                 textField.inputAccessoryView = accessoryController.view
@@ -75,6 +100,17 @@ extension InputAccessory {
             
             textField.autocorrectionType = disableAutocorrection ? .no : .yes
             textField.autocapitalizationType = autocapitalization
+            
+            switch placeholder {
+            case .text(let placeholder):
+                textField.placeholder = placeholder
+            case .attributed(let attributedPlaceHolder):
+                textField.attributedPlaceholder = attributedPlaceHolder
+            case .none:
+                break
+            }
+            
+            var trailingInset: CGFloat = 0
             
             if let tag = tag {
                 textField.tag = tag
@@ -101,37 +137,16 @@ extension InputAccessory {
                 textField.returnKeyType = returnKeyType
             }
             if _showsClearButton {
+                
                 textField.clearButtonMode = .whileEditing
+                
+                let label = UILabel()
+                label.font = font
+                label.text = "+"
+                trailingInset = label.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).width * 2.5
             }
             
-            accessoryController.addTextField(textField)
-            
-            return textField
-        }
-        
-        public func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextField>) {
-            
-            let textField = uiView
-            
-            textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
-            textField.setContentCompressionResistancePriority(.required, for: .vertical)
-            textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            
-            switch placeholder {
-            case .text(let placeholder):
-                textField.placeholder = placeholder
-            case .attributed(let attributedPlaceHolder):
-                textField.attributedPlaceholder = attributedPlaceHolder
-            case .none:
-                break
-            }
-            
-            textField.text = text
-            textField.font = font
-        }
-        
-        public static func dismantleUIView(_ uiView: UITextField, coordinator: TextField.Coordinator) {
-            coordinator.parent.accessoryController.removeTextField(uiView)
+            textField.insets = UIEdgeInsets(top: insets.top, left: insets.leading, bottom: insets.bottom, right: insets.trailing + trailingInset)
         }
         
         
