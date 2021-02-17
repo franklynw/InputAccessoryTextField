@@ -6,6 +6,7 @@
 
 import SwiftUI
 import FWCommonProtocols
+import ButtonConfig
 
 
 extension InputAccessory {
@@ -29,6 +30,9 @@ extension InputAccessory {
         internal var returnKeyAction: (() -> ())?
         internal var keyboardDismissButtonAction: (() -> ())?
         internal var doneButtonImageName: SystemImageNaming?
+        internal var additionalLeftButtons: [ImageButtonConfig]?
+        internal var additionalRightButtons: [ImageButtonConfig]?
+        internal var editingEnded: ((String?) -> ())?
         internal var _hideToolBar = false
         
         internal let accessoryController: Controller
@@ -63,6 +67,8 @@ extension InputAccessory {
             
             let textField = TextFieldWrapper()
             textField.delegate = context.coordinator
+            
+            updateProperties(for: textField)
             
             accessoryController.addTextField(textField)
             
@@ -136,6 +142,12 @@ extension InputAccessory {
             if let returnKeyType = returnKeyType {
                 textField.returnKeyType = returnKeyType
             }
+            if let additionalLeftButtons = additionalLeftButtons {
+                textField.leftButtons = additionalLeftButtons
+            }
+            if let additionalRightButtons = additionalRightButtons {
+                textField.rightButtons = additionalRightButtons
+            }
             if _showsClearButton {
                 
                 textField.clearButtonMode = .whileEditing
@@ -160,6 +172,10 @@ extension InputAccessory {
             
             public func textFieldDidBeginEditing(_ textField: UITextField) {
                 parent.accessoryController.setCurrentTextFieldTag(textField.tag)
+            }
+            
+            public func textFieldDidEndEditing(_ textField: UITextField) {
+                parent.editingEnded?(textField.text)
             }
             
             public func textFieldDidChangeSelection(_ textField: UITextField) {

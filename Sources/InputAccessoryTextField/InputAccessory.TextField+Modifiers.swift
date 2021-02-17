@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FWCommonProtocols
+import ButtonConfig
 
 
 extension InputAccessory.TextField {
@@ -156,6 +157,24 @@ extension InputAccessory.TextField {
         var copy = self
         copy.keyboardDismissButtonAction = action
         copy.doneButtonImageName = image
+        return copy
+    }
+    
+    public func additionalLeftButton(_ additionalLeftButton: ImageButtonConfig) -> Self {
+        var copy = self
+        copy.additionalLeftButtons = [additionalLeftButton]
+        return copy
+    }
+    
+    public func additionalRightButton(_ additionalRightButton: ImageButtonConfig) -> Self {
+        var copy = self
+        copy.additionalRightButtons = [additionalRightButton]
+        return copy
+    }
+    
+    public func editingEnded(_ editingEnded: @escaping ((String?) -> ())) -> Self {
+        var copy = self
+        copy.editingEnded = editingEnded
         return copy
     }
 }

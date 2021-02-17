@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ButtonConfig
 
 
 extension InputAccessory {
@@ -17,6 +18,8 @@ extension InputAccessory {
         internal var toolBarColor: UIColor?
         internal var toolBarTintColor: UIColor?
         internal var doneButtonImageName: String?
+        internal var leftButtons: [ImageButtonConfig] = []
+        internal var rightButtons: [ImageButtonConfig] = []
         internal var insets = UIEdgeInsets.zero
         
         

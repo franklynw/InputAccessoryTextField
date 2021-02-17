@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ButtonConfig
 
 
 extension InputAccessory {
@@ -20,7 +21,10 @@ extension InputAccessory {
         
         var currentTextFieldTag = 0
         
-        static let barHeight: CGFloat = 44
+        static var barHeight: CGFloat {
+            let size = fontSize(for: .title)
+            return size * 1.571
+        }
         
         var body: some View {
             
@@ -34,8 +38,6 @@ extension InputAccessory {
                     
                     Button(action: previousTextField, label: {
                         Image(.chevronLeft)
-                            .resizable()
-                            .frame(width: 18, height: 27)
                             .font(Font.title.weight(.semibold))
                             .accentColor(buttonColor())
                     })
@@ -45,15 +47,17 @@ extension InputAccessory {
                     
                     Button(action: nextTextField, label: {
                         Image(.chevronRight)
-                            .resizable()
-                            .frame(width: 18, height: 27)
                             .font(Font.title.weight(.semibold))
                             .accentColor(buttonColor())
                     })
                     .opacity(nextButtonOpacity())
                     .disabled(currentIndex() == textFields.count - 1)
                     
+                    leftButtons()
+                    
                     Spacer()
+                    
+                    rightButtons()
                     
                     Button(action: dismissCurrentTextField, label: {
                         doneButtonImage()
@@ -93,7 +97,7 @@ extension InputAccessory {
             textField.action?()
         }
         
-        private func doneButtonImage() -> AnyView {
+        private func doneButtonImage() -> some View {
             
             let imageName: String
             
@@ -104,21 +108,9 @@ extension InputAccessory {
                 imageName = InputAccessory.dismissKeyboardButtonSystemImageName ?? Image.SystemName.keyboardDismiss.systemImageName
             }
             
-            // because the system images have varying aspect ratios, if we put it in an HStack with some space
-            // & contentMode .fit it'll be the size we want with its original aspect ratio
-            
-            let image = HStack {
-                Spacer()
-                Image(systemName: imageName)
-                    .resizable()
-                    .font(Font.title.weight(.semibold))
-                    .accentColor(buttonColor())
-                    .aspectRatio(contentMode: .fit)
-                    .frame(alignment: .trailing)
-            }
-            .frame(width: 100, height: 26)
-            
-            return AnyView(image)
+            return Image(systemName: imageName)
+                .font(Font.title.weight(.semibold))
+                .accentColor(buttonColor())
         }
         
         private func buttonColor() -> Color? {
@@ -168,5 +160,65 @@ extension InputAccessory {
             
             return currentIndex() == textFields.count - 1 ? 0.2 : 1
         }
+        
+        @ViewBuilder
+        private func leftButtons() -> some View {
+            
+            if let currentIndex = currentIndex() {
+                
+                let textField = textFields[currentIndex]
+                
+                HStack {
+                    ForEach(textField.leftButtons) {
+                        FWImageButton($0)
+                            .font(Font.title.weight(.semibold))
+                            .accentColor(buttonColor())
+                    }
+                }
+            }
+        }
+        
+        @ViewBuilder
+        private func rightButtons() -> some View {
+            
+            if let currentIndex = currentIndex() {
+                
+                let textField = textFields[currentIndex]
+                
+                HStack {
+                    ForEach(textField.rightButtons) {
+                        FWImageButton($0)
+                            .font(Font.title.weight(.semibold))
+                            .accentColor(buttonColor())
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+fileprivate extension InputAccessory.ToolBar {
+    
+    private static let fontSizes: [Font.TextStyle: CGFloat] = [
+        .largeTitle: 34,
+        .title: 28,
+        .title2: 22,
+        .title3: 20,
+        .headline: 17,
+        .body: 17,
+        .callout: 16,
+        .subheadline: 15,
+        .footnote: 13,
+        .caption: 12,
+        .caption2: 11
+    ]
+    
+    static func fontSize(for style: Font.TextStyle) -> CGFloat {
+        guard let size = fontSizes[style] else {
+            return 12
+        }
+        let scale = UIFontMetrics.default.scaledValue(for: size)
+        return size * scale / size
     }
 }

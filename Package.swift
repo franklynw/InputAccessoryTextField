@@ -6,18 +6,21 @@ import PackageDescription
 let package = Package(
     name: "InputAccessoryTextField",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v14)
     ],
     products: [
         .library(
             name: "InputAccessoryTextField",
             targets: ["InputAccessoryTextField"]),
     ],
-    dependencies: [.package(name: "FWCommonProtocols", url: "https://github.com/franklynw/FWCommonProtocols.git", .upToNextMajor(from: "1.0.0"))],
+    dependencies: [
+        .package(name: "FWCommonProtocols", url: "https://github.com/franklynw/FWCommonProtocols.git", .upToNextMajor(from: "1.0.0")),
+        .package(name: "ButtonConfig", url: "https://github.com/franklynw/ButtonConfig.git", .upToNextMajor(from: "1.0.0"))
+    ],
     targets: [
         .target(
             name: "InputAccessoryTextField",
-            dependencies: ["FWCommonProtocols"]),
+            dependencies: ["FWCommonProtocols", "ButtonConfig"]),
         .testTarget(
             name: "InputAccessoryTextFieldTests",
             dependencies: ["InputAccessoryTextField"]),
