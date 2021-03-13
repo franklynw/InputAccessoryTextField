@@ -6,11 +6,12 @@
 
 import SwiftUI
 import FWCommonProtocols
+import ButtonConfig
 
 
 extension InputAccessory {
     
-    public struct TextField<I: Identifiable>: UIViewRepresentable where I.ID == String {
+    public struct TextField: UIViewRepresentable {
         
         @Binding private var text: String
         
@@ -29,6 +30,9 @@ extension InputAccessory {
         internal var returnKeyAction: (() -> ())?
         internal var keyboardDismissButtonAction: (() -> ())?
         internal var doneButtonImageName: SystemImageNaming?
+        internal var additionalLeftButtons: [ImageButtonConfig]?
+        internal var additionalRightButtons: [ImageButtonConfig]?
+        internal var editingEnded: ((String?) -> ())?
         internal var _hideToolBar = false
         
         internal let accessoryController: Controller
@@ -48,7 +52,7 @@ extension InputAccessory {
         ///   - view: the parent view (usually the main view for the screen) - must conform to Identifiable, where id is a String
         ///   - tag: a tag which is used if you want to enable tabbing between textFields
         ///   - text: a binding to the String var for the input
-        public init(parentView view: I, tag: Int? = nil, text: Binding<String>) {
+        public init<I: Identifiable>(parentView view: I, tag: Int? = nil, text: Binding<String>) where I.ID == String {
             viewId = view.id
             self.accessoryController = TextFieldManager.shared.controller(forViewId: viewId)
             self.tag = tag
@@ -64,10 +68,37 @@ extension InputAccessory {
             let textField = TextFieldWrapper()
             textField.delegate = context.coordinator
             
+            updateProperties(for: textField)
+            
+            accessoryController.addTextField(textField)
+            
+            return textField
+        }
+        
+        public func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextField>) {
+            
+            uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            uiView.setContentCompressionResistancePriority(.required, for: .vertical)
+            uiView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            
+            uiView.text = text
+            
+            guard let textField = uiView as? TextFieldWrapper else {
+                return
+            }
+            
+            updateProperties(for: textField)
+        }
+        
+        public static func dismantleUIView(_ uiView: UITextField, coordinator: TextField.Coordinator) {
+            coordinator.parent.accessoryController.removeTextField(uiView)
+        }
+        
+        private func updateProperties(for textField: TextFieldWrapper) {
+            
             textField.viewId = viewId
             textField.action = keyboardDismissButtonAction
             textField.doneButtonImageName = doneButtonImageName?.systemImageName
-            textField.insets = UIEdgeInsets(top: insets.top, left: insets.leading, bottom: insets.bottom, right: insets.trailing)
             
             if !_hideToolBar {
                 textField.inputAccessoryView = accessoryController.view
@@ -75,6 +106,17 @@ extension InputAccessory {
             
             textField.autocorrectionType = disableAutocorrection ? .no : .yes
             textField.autocapitalizationType = autocapitalization
+            
+            switch placeholder {
+            case .text(let placeholder):
+                textField.placeholder = placeholder
+            case .attributed(let attributedPlaceHolder):
+                textField.attributedPlaceholder = attributedPlaceHolder
+            case .none:
+                break
+            }
+            
+            var trailingInset: CGFloat = 0
             
             if let tag = tag {
                 textField.tag = tag
@@ -100,38 +142,23 @@ extension InputAccessory {
             if let returnKeyType = returnKeyType {
                 textField.returnKeyType = returnKeyType
             }
+            if let additionalLeftButtons = additionalLeftButtons {
+                textField.leftButtons = additionalLeftButtons
+            }
+            if let additionalRightButtons = additionalRightButtons {
+                textField.rightButtons = additionalRightButtons
+            }
             if _showsClearButton {
+                
                 textField.clearButtonMode = .whileEditing
+                
+                let label = UILabel()
+                label.font = font
+                label.text = "+"
+                trailingInset = label.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).width * 2.5
             }
             
-            accessoryController.addTextField(textField)
-            
-            return textField
-        }
-        
-        public func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextField>) {
-            
-            let textField = uiView
-            
-            textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
-            textField.setContentCompressionResistancePriority(.required, for: .vertical)
-            textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            
-            switch placeholder {
-            case .text(let placeholder):
-                textField.placeholder = placeholder
-            case .attributed(let attributedPlaceHolder):
-                textField.attributedPlaceholder = attributedPlaceHolder
-            case .none:
-                break
-            }
-            
-            textField.text = text
-            textField.font = font
-        }
-        
-        public static func dismantleUIView(_ uiView: UITextField, coordinator: TextField.Coordinator) {
-            coordinator.parent.accessoryController.removeTextField(uiView)
+            textField.insets = UIEdgeInsets(top: insets.top, left: insets.leading, bottom: insets.bottom, right: insets.trailing + trailingInset)
         }
         
         
@@ -145,6 +172,10 @@ extension InputAccessory {
             
             public func textFieldDidBeginEditing(_ textField: UITextField) {
                 parent.accessoryController.setCurrentTextFieldTag(textField.tag)
+            }
+            
+            public func textFieldDidEndEditing(_ textField: UITextField) {
+                parent.editingEnded?(textField.text)
             }
             
             public func textFieldDidChangeSelection(_ textField: UITextField) {
