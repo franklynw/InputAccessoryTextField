@@ -160,18 +160,24 @@ extension InputAccessory.TextField {
         return copy
     }
     
+    /// Adds a button to the left of the toolBar, just on the right of the '<' & '>' buttons
+    /// - Parameter additionalLeftButton: the configuration for the button
     public func additionalLeftButton(_ additionalLeftButton: ImageButtonConfig) -> Self {
         var copy = self
         copy.additionalLeftButtons = [additionalLeftButton]
         return copy
     }
     
+    /// Adds a button to the right of the toolBar, just on the left of the dismiss keyboard button
+    /// - Parameter additionalRightButton: the configuration for the button
     public func additionalRightButton(_ additionalRightButton: ImageButtonConfig) -> Self {
         var copy = self
         copy.additionalRightButtons = [additionalRightButton]
         return copy
     }
     
+    /// An action to perform when editing ends
+    /// - Parameter editingEnded: the closure to invoke, which is passed the textField's text
     public func editingEnded(_ editingEnded: @escaping ((String?) -> ())) -> Self {
         var copy = self
         copy.editingEnded = editingEnded

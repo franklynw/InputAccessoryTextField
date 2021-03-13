@@ -205,6 +205,16 @@ You can also use the static var (once per view rather than for each textField) t
 InputAccessory.dismissKeyboardButtonSystemImageName = "checkmark"
 ```
 
+### Put additional buttons on the toolBar
+
+You can add a button towards the left and/or the right of the toolBar
+
+```swift
+InputAccessory.TextField(parentView: self, text: viewModel.searchTerm)
+    .additionalLeftButton(buttonConfig)
+    .additionalRightButton(otherButtonConfig)
+```
+
 ### Hide the accessory view
 
 Sometimes you may want to hide the accessory view, while still keeping all the other features of the InputAccessoryTextField -
@@ -214,6 +224,16 @@ InputAccessory.TextField(parentView: self, text: viewModel.searchTerm)
     .hideToolBar
 ```
 
+### Respond to editing ended
+
+Perform an action when the textField ends editing
+
+```swift
+InputAccessory.TextField(parentView: self, text: viewModel.searchTerm)
+    .editingEnded { text in
+        // do stuff
+    }
+```
 
 ## Dependencies
 
