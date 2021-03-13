@@ -11,7 +11,7 @@ import ButtonConfig
 
 extension InputAccessory {
     
-    public struct TextField<I: Identifiable>: UIViewRepresentable where I.ID == String {
+    public struct TextField: UIViewRepresentable {
         
         @Binding private var text: String
         
@@ -52,7 +52,7 @@ extension InputAccessory {
         ///   - view: the parent view (usually the main view for the screen) - must conform to Identifiable, where id is a String
         ///   - tag: a tag which is used if you want to enable tabbing between textFields
         ///   - text: a binding to the String var for the input
-        public init(parentView view: I, tag: Int? = nil, text: Binding<String>) {
+        public init<I: Identifiable>(parentView view: I, tag: Int? = nil, text: Binding<String>) where I.ID == String {
             viewId = view.id
             self.accessoryController = TextFieldManager.shared.controller(forViewId: viewId)
             self.tag = tag

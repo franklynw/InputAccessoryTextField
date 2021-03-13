@@ -34,9 +34,5 @@ extension InputAccessory {
         override func editingRect(forBounds bounds: CGRect) -> CGRect {
             return bounds.inset(by: insets)
         }
-        
-        deinit {
-            TextFieldManager.shared.removeController(forViewId: viewId)
-        }
     }
 }

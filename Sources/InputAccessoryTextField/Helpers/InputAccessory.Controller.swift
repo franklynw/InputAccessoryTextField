@@ -34,6 +34,9 @@ extension InputAccessory {
         
         func removeTextField(_ textField: UITextField) {
             rootView.textFields.removeAll(where: {$0 == textField})
+            if let textFieldWrapper = textField as? TextFieldWrapper {
+                TextFieldManager.shared.removeController(forViewId: textFieldWrapper.viewId)
+            }
         }
         
         func setCurrentTextFieldTag(_ tag: Int) {
