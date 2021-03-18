@@ -240,6 +240,6 @@ InputAccessory.TextField(parentView: self, text: viewModel.searchTerm)
 Requires FWCommonProtocols, which is linked. GitHub page is [here](https://github.com/franklynw/FWCommonProtocols)
 
 
-## License  
+## Licence  
 
-`InputAccessoryTextField` is available under the MIT license
+`InputAccessoryTextField` is available under the MIT licence
