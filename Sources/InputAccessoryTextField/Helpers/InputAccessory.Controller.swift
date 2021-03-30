@@ -12,7 +12,7 @@ extension InputAccessory {
     
     internal class Controller: UIHostingController<ToolBar> {
         
-        private var hasStartedInput = false
+        var hasStartedInput = false
         
         convenience init () {
             self.init(rootView: ToolBar())
@@ -66,6 +66,7 @@ extension InputAccessory {
         }
         
         func endInput() {
+            hasStartedInput = false
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.rootView.textFields.forEach { $0.resignFirstResponder() }
             }
