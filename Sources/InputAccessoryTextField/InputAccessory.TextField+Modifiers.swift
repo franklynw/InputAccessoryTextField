@@ -121,16 +121,41 @@ extension InputAccessory.TextField {
         return copy
     }
     
-    /// Tell the textField to become the first responder
-    /// - Parameter shouldStart: if set to true (default) then it will become the first responder
-    public func startInput(_ shouldStart: Bool = true) -> Self {
-        guard let tag = tag else {
-            return self
-        }
-        if shouldStart {
+    public var startInput: Self {
+        if let tag = tag {
             accessoryController.startInput(tag)
         }
         return self
+    }
+    
+    /// Tell the textField to become the first responder
+    /// - Parameter shouldStart: if set to true (default) then it will become the first responder
+    public func startInput(_ shouldStart: Binding<Bool>) -> Self {
+        
+        guard let tag = tag else {
+            return self
+        }
+        
+        var copy = self
+        
+        let binding = Binding<Bool>(
+            get: {
+                
+                if shouldStart.wrappedValue {
+                    accessoryController.startInput(tag)
+                    shouldStart.wrappedValue = false
+                }
+                
+                return shouldStart.wrappedValue
+            },
+            set: {
+                shouldStart.wrappedValue = $0
+            }
+        )
+        
+        copy.becomeFirstResponder = binding
+        
+        return copy
     }
     
     /// Tell all tagged InputAccessoryTextFields to resignFirstResponder
@@ -160,18 +185,24 @@ extension InputAccessory.TextField {
         return copy
     }
     
+    /// Adds a button to the left of the toolBar, just on the right of the '<' & '>' buttons
+    /// - Parameter additionalLeftButton: the configuration for the button
     public func additionalLeftButton(_ additionalLeftButton: ImageButtonConfig) -> Self {
         var copy = self
         copy.additionalLeftButtons = [additionalLeftButton]
         return copy
     }
     
+    /// Adds a button to the right of the toolBar, just on the left of the dismiss keyboard button
+    /// - Parameter additionalRightButton: the configuration for the button
     public func additionalRightButton(_ additionalRightButton: ImageButtonConfig) -> Self {
         var copy = self
         copy.additionalRightButtons = [additionalRightButton]
         return copy
     }
     
+    /// An action to perform when editing ends
+    /// - Parameter editingEnded: the closure to invoke, which is passed the textField's text
     public func editingEnded(_ editingEnded: @escaping ((String?) -> ())) -> Self {
         var copy = self
         copy.editingEnded = editingEnded

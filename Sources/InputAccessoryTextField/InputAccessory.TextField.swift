@@ -9,6 +9,8 @@ import FWCommonProtocols
 import ButtonConfig
 
 
+public typealias InputAccessoryTextField = InputAccessory.TextField
+
 extension InputAccessory {
     
     public struct TextField: UIViewRepresentable {
@@ -33,6 +35,7 @@ extension InputAccessory {
         internal var additionalLeftButtons: [ImageButtonConfig]?
         internal var additionalRightButtons: [ImageButtonConfig]?
         internal var editingEnded: ((String?) -> ())?
+        internal var becomeFirstResponder: Binding<Bool>?
         internal var _hideToolBar = false
         
         internal let accessoryController: Controller
@@ -176,6 +179,7 @@ extension InputAccessory {
             
             public func textFieldDidEndEditing(_ textField: UITextField) {
                 parent.editingEnded?(textField.text)
+                parent.accessoryController.hasStartedInput = false
             }
             
             public func textFieldDidChangeSelection(_ textField: UITextField) {
